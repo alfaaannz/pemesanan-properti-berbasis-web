@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Daftar Pesanan</title>
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+
+    <body>
+    <div class="jumbotron jumbotron-fluid jumbotron-custom p-5" style="background:url(assets/img/properti.jpg); background-size: 300px; color: #000000; margin-bottom: 0;">
+        <div class="container py-5">
+            <h1 class="display-5 fw-bold" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Juliana Silva Properti</h1>
+            <p class="col-md-8 fs-4">Jl. Kawi Kawi Bawah No.A-34, RT.5/RW.8, Johar Baru, Kec. Johar Baru, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10560.</p>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-custom" style="background-color: #7c75ab">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html" style="color: rgb(0, 0, 0) !important;">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="pendaftaran_properti.php" style="color: rgb(0, 0, 0) !important;">Pendaftaran Pemesanan Properti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="daftar_pesanan.php" style="color: rgb(0, 0, 0) !important;">Daftar Pemesanan Properti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<?php
+    // Menghubungkan ke database
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $database = "db_properti";
+
+    $conn = new mysqli($servername, $username, $password, $database);
+
+    // Memeriksa koneksi
+    if ($conn->connect_error) {
+        die("Koneksi ke database gagal: " . $conn->connect_error);
+    }
+
+    // Query untuk mengambil data dari tabel pesanan
+    $sql = "SELECT * FROM pemesanan_properti";
+    $result = $conn->query($sql); 
+
+    ?>
+    <h1 class="text-center m-4">Daftar Pemesanan Paket Wisata</h1>
+    <div class="table-responsive col-md-9 mx-auto">
+      <table class="table table-striped-sm">
+        <thead class="text-center">
+            <tr>
+                <th>No</th>
+                <th>Nama Pemesan</th>
+                <th>No Hp/Telp</th>
+                <th>Tanggal Pemesanan</th>
+                <th>Durasi Sewa</th>
+                <th>Harga Paket</th>
+                <th>Jumlah Tagihan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $no = 1;
+                while ($daftar_pesanan = mysqli_fetch_array($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $no . "</td>";
+                    echo "<td>" . $daftar_pesanan['nama_pemesanan'] . "</td>";
+                    echo "<td>" . $daftar_pesanan['no_hp'] . "</td>";
+                    echo "<td>" . $daftar_pesanan['tanggal'] . "</td>";
+                    echo "<td>" . $daftar_pesanan['durasi_sewa'] . "</td>";
+                    echo "<td>Rp " . number_format($daftar_pesanan['harga_paket'], 0, ',', '.') . "</td>";
+                    echo "<td>Rp " . number_format($daftar_pesanan['jml_tagihan'], 0, ',', '.') . "</td>";
+                    echo "</tr>";
+                    $no++;
+                }
+            ?>
+        </tbody>
+
+      </table>
+    </div>
+
+
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273036" fill-opacity="1" d="M0,0L0,224L36.9,224L36.9,128L73.8,128L73.8,224L110.8,224L110.8,288L147.7,288L147.7,160L184.6,160L184.6,96L221.5,96L221.5,160L258.5,160L258.5,288L295.4,288L295.4,128L332.3,128L332.3,128L369.2,128L369.2,192L406.2,192L406.2,32L443.1,32L443.1,192L480,192L480,224L516.9,224L516.9,32L553.8,32L553.8,32L590.8,32L590.8,128L627.7,128L627.7,288L664.6,288L664.6,128L701.5,128L701.5,128L738.5,128L738.5,160L775.4,160L775.4,192L812.3,192L812.3,320L849.2,320L849.2,0L886.2,0L886.2,64L923.1,64L923.1,64L960,64L960,224L996.9,224L996.9,320L1033.8,320L1033.8,320L1070.8,320L1070.8,32L1107.7,32L1107.7,224L1144.6,224L1144.6,288L1181.5,288L1181.5,160L1218.5,160L1218.5,256L1255.4,256L1255.4,64L1292.3,64L1292.3,32L1329.2,32L1329.2,224L1366.2,224L1366.2,160L1403.1,160L1403.1,32L1440,32L1440,320L1403.1,320L1403.1,320L1366.2,320L1366.2,320L1329.2,320L1329.2,320L1292.3,320L1292.3,320L1255.4,320L1255.4,320L1218.5,320L1218.5,320L1181.5,320L1181.5,320L1144.6,320L1144.6,320L1107.7,320L1107.7,320L1070.8,320L1070.8,320L1033.8,320L1033.8,320L996.9,320L996.9,320L960,320L960,320L923.1,320L923.1,320L886.2,320L886.2,320L849.2,320L849.2,320L812.3,320L812.3,320L775.4,320L775.4,320L738.5,320L738.5,320L701.5,320L701.5,320L664.6,320L664.6,320L627.7,320L627.7,320L590.8,320L590.8,320L553.8,320L553.8,320L516.9,320L516.9,320L480,320L480,320L443.1,320L443.1,320L406.2,320L406.2,320L369.2,320L369.2,320L332.3,320L332.3,320L295.4,320L295.4,320L258.5,320L258.5,320L221.5,320L221.5,320L184.6,320L184.6,320L147.7,320L147.7,320L110.8,320L110.8,320L73.8,320L73.8,320L36.9,320L36.9,320L0,320L0,320Z"></path></svg>
+    <div class="mx-0 px-0">
+        <footer style="background-color: #273036" class="px-5 d-flex flex-wrap justify-content-between align-items-center py-3 my-50">
+            <div class="col-md-4 d-flex align-items-center">
+                <img src="assets/img/22.png" alt="" style="width: 50px;">
+                <span class="mb-3 mb-md-0 text-white px-2">© 2024 Copyright </span>
+            </div>
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3">
+                    <a class="text-white" href="#">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="text-white" href="#">
+                        <i class="bi bi-messenger"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="text-white" href="#">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </li>
+            </ul>
+        </footer>
+</div>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
