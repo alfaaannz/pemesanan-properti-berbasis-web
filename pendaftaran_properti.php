@@ -79,28 +79,14 @@
                         <label class="col-sm-4 col-form-label">Pilih Jenis Properti</label>
                         <div class="col-sm-8">
                             <select class="form-select" id="unit_properti" name="unit_properti">
-                                <option id="kamar" name="kamar" value="500000">Kamar (Rp.500k/hari)</option>
-                                <option id="pavilion" name="pavilion" value="1500000">Pavilion (Rp.1.500k/hari)</option>
-                                <option id="rumah" name="rumah" value="2000000">Rumah (Rp.2.000k/hari)</option>
-                                <option id="kios" name="kios" value="1500000">Kios (Rp.1.500k/hari)</option>
-                                <option id="ruko" name="ruko" value="2500000">Ruko (Rp.2.500k/hari)</option>
+                                <option id="kamar" name="kamar" value="500000">Kamar (Rp.500.000/hari)</option>
+                                <option id="pavilion" name="pavilion" value="1500000">Pavilion (Rp.1.500.000/hari)</option>
+                                <option id="rumah" name="rumah" value="2000000">Rumah (Rp.2.000.000/hari)</option>
+                                <option id="kios" name="kios" value="1500000">Kios (Rp.1.500.000/hari)</option>
+                                <option id="ruko" name="ruko" value="2500000">Ruko (Rp.2.500.000/hari)</option>
                             </select>
                         </div>
                     </div>
-
-                    <!-- Penambahan Fitur -->
-                    <!-- <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Diskon 100 Pelanggan Pertama</label>
-                        <div class="col-sm-8">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id ="diskon_pertama"  >
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Ya (10% dari harga sewa)
-                            </label>
-                            </div>
-                        </div>
-                    </div> -->
-                     <!-- End -->
 
                         <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Harga Sewa</label>
@@ -162,24 +148,28 @@
         <!-- Javascript Logic -->
         <script>
                 function calculateTotal() {
-                        const durasiSewa = parseInt(document.getElementById('durasi_sewa').value);
-                        const hargaProperti = parseInt(document.getElementById('unit_properti').value);
-                        // Penambahan Fitur
-                        let totalHargaSewa = durasiSewa * hargaProperti;
-                        let hargaSewa = totalHargaSewa;
+                    const durasiSewa = parseInt(document.getElementById('durasi_sewa').value);
+                    const hargaProperti = parseInt(document.getElementById('unit_properti').value);
+                    // Penambahan Fitur
+                    let totalHargaSewa = durasiSewa * hargaProperti;
+                    let hargaSewa = totalHargaSewa;
 
-                        if (totalHargaSewa >= 10000000) {
-                        const biayaDiskon = totalHargaSewa * 0.1;
-                        totalHargaSewa -= biayaDiskon; // Mendiskon harga sewa menjadi 10%
-                        }
-                        // End
-                        document.getElementById('harga_paket').value = hargaSewa.toFixed(2);
-                        document.getElementById('jml_tagihan').value = totalHargaSewa.toFixed(2);
-                        }
+                    if (totalHargaSewa >= 10000000) {
+                    const biayaDiskon = totalHargaSewa * 0.1;
+                    totalHargaSewa -= biayaDiskon; // Mendiskon harga sewa menjadi 10%
+                    }
+                    // End
+                    document.getElementById('harga_paket').value = hargaSewa.toFixed(2);
+                    document.getElementById('jml_tagihan').value = totalHargaSewa.toFixed(2);
+                    }
 
-                        document.addEventListener('DOMContentLoaded', function() {
-                        document.getElementById('cek_tagihan').addEventListener('click', calculateTotal);
-                        });
+                    document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('cek_tagihan').addEventListener('click', calculateTotal);
+                });
+
+                function formatNumber(number) {
+                    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                }
         </script>
 
     </body>
